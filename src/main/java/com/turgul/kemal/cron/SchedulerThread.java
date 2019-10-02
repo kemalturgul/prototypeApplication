@@ -10,6 +10,9 @@ import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 
+import com.turgul.kemal.constant.Constants;
+import com.turgul.kemal.io.FileOperations;
+
 /**
  * @author kemalturgul
  *
@@ -26,9 +29,15 @@ public class SchedulerThread extends Thread {
             JobDetail job = JobBuilder.newJob(WriteCacheDataToFileJob.class).withIdentity("writeCacheDataToFileJob",
                                                                                           "dataGroup1").build();
 
+            String cronExpression = getCronExpression();
+            if (cronExpression == null || cronExpression.trim().length() == 0) {
+                logger.error("'{}' parameter value is empty or null, enter a valid cron expression",
+                             Constants.CONFIG_PARAM_DATA_SCHEDULER);
+                return;
+            }
             //Set the scheduler timings.
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity("cronTrigger",
-                                                                       "dataGroup1").withSchedule(CronScheduleBuilder.cronSchedule("0/10 * * * * ?")).build();
+                                                                       "dataGroup1").withSchedule(CronScheduleBuilder.cronSchedule(cronExpression)).build();
 
             //Execute the job.
             Scheduler scheduler = new StdSchedulerFactory().getScheduler();
@@ -41,5 +50,9 @@ public class SchedulerThread extends Thread {
             logger.error("An Exception occurred while configuring Cron Job Thread", e);
         }
 
+    }
+
+    private String getCronExpression() {
+        return FileOperations.configProperties.getProperty(Constants.CONFIG_PARAM_DATA_SCHEDULER);
     }
 }

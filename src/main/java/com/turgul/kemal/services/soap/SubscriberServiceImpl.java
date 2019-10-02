@@ -28,13 +28,13 @@ public class SubscriberServiceImpl implements SubscriberService {
 
     @WebMethod
     public List<Subscriber> getAllSubscribers() {
-        logger.debug("getAllSubscribers[SOAP] is received");
+        logger.debug("getAllSubscribers [SOAP] is received");
         return InMemoryCache.getInstance().getAllCacheData();
     }
 
     @WebMethod
-    public Subscriber getSubscriber(int id) throws SubscriberNotFound, InvalidSubscriberId {
-        logger.debug("getSubscriber [SOAP] is received for ID:{}", id);
+    public Subscriber getSubscriberById(int id) throws SubscriberNotFound, InvalidSubscriberId {
+        logger.debug("getSubscriberById [SOAP] is received for ID:{}", id);
         if (id <= 0) {
             throw new InvalidSubscriberId();
         }

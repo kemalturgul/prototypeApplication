@@ -21,5 +21,5 @@ public interface SubscriberService {
     public List<Subscriber> getAllSubscribers();
 
     @WebMethod
-    public Subscriber getSubscriber(int id) throws SubscriberNotFound, InvalidSubscriberId;
+    public Subscriber getSubscriberById(int id) throws SubscriberNotFound, InvalidSubscriberId;
 }

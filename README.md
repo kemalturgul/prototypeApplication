@@ -35,7 +35,7 @@ This is a project about REST, SOAP Services, Cache and also integrated with Apac
    This file have two configuration parameters:
    	<pre>data_file_path:Location of the data.json file which application read this file and adds its subscription to cache at startup.File can be also empty at startup</pre>
 	<pre>scheduler:This represents a cron expression. At this time all cached subscriptions would be written to data.json file. Existed data would be overwritten.</pre>
-	Excample parameter values:
+	Example parameter values:
 	<pre>data_file_path=D:\\MyFiles\\PrototypeApplication\\data.json</pre>
 	<pre>scheduler=0 0/1 * 1/1 * ? *</pre>
 
